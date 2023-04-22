@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-jpa-deployment
+  namespace: example-project
+spec:
+  selector:
+    matchLabels:
+      app: demo-jpa
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-jpa
+    spec:
+      containers:
+        - name: demo-jpa
+          image: demo-jpa:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3
