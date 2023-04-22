@@ -1,10 +1,15 @@
 package com.example.demojpa.app.command.message;
 
 import com.example.demojpa.app.ResourceNotFoundException;
+import com.example.demojpa.domain.message.Message;
 import com.example.demojpa.domain.message.MessageDTO;
 import com.example.demojpa.domain.message.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -12,13 +17,19 @@ public class CommandMessageHandlerImpl implements CommandMessageHandler {
     private final MessageRepository repository;
 
     @Override
-    public Long createMessage(MessageDTO body) {
-        return repository.save(body.mapToEntity()).getId();
+    public Mono<Long> create(MessageDTO body) {
+        return repository.save(body.mapToEntity()).subscribeOn(Schedulers.boundedElastic()).map(Message::getId);
     }
 
     @Override
-    public void updateMessage(Long id,MessageDTO body) {
-        repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("message not exist by id"));
-        repository.save(body.mapToEntity());
+    public Mono<Void> update(Long id, MessageDTO body) {
+        return repository.findById(id)
+                .map(Optional::of)
+                .defaultIfEmpty(Optional.empty())
+                .flatMap(optionalTutorial -> {
+                        var m = optionalTutorial.orElseThrow(()-> new ResourceNotFoundException("not found message in db"));
+                        return repository.save(body.mapToEntity().setId(m.getId())).as(v->Mono.empty());
+                    }
+                );
     }
 }

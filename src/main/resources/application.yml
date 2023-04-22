@@ -6,23 +6,12 @@
 #    driver: org.postgresql.Driver
 
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/example_db
-    hikari:
-      username: example_user
-      driver-class-name: org.postgresql.Driver
-      minimum-idle: 1
-      idleTimeout: 12000
-      maximum-pool-size: 5
-      pool-name: template-manager
-    type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    properties:
-      hibernate:
-        c3p0:
-          max_size: 5
-          min_size: 5
-          acquire_increment: 1
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-    generate-ddl: false
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/example_db
+    username: example_user
+    password: 1234
+    pool:
+      enabled: true
+      max-size: 10
+      max-idle-time: 10m
+      initial-size: 1

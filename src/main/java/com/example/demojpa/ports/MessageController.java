@@ -5,9 +5,10 @@ import com.example.demojpa.app.query.message.QueryMessageHandler;
 import com.example.demojpa.domain.message.Message;
 import com.example.demojpa.domain.message.MessageDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/v1/message")
@@ -16,25 +17,24 @@ public class MessageController {
     private final QueryMessageHandler queryMessageHandler;
     private final CommandMessageHandler commandMessageHandler;
 
-    @GetMapping("/")
-    public List<Message> getMessageList(){
+    @GetMapping(value = "/",produces = MediaType.APPLICATION_NDJSON_VALUE)
+    public Flux<Message> getMessageList(){
         return queryMessageHandler.getMessageListHandler();
     }
 
     @GetMapping("/{id}")
-    public Message getMessageById(@PathVariable Long id){
+    public Mono<Message> getMessageById(@PathVariable Long id){
         return queryMessageHandler.getMessageByIdHandler(id);
     }
 
     @PostMapping("/")
-    public Long create(@RequestBody MessageDTO body){
-       return commandMessageHandler.createMessage(body);
+    public Mono<Long> create(@RequestBody MessageDTO body){
+       return commandMessageHandler.create(body);
     }
 
     @PostMapping("/{id}")
-    public void update(@PathVariable Long id,@RequestBody MessageDTO body){
-        commandMessageHandler.updateMessage(id,body);
+    public Mono<Void> update(@PathVariable Long id, @RequestBody MessageDTO body){
+        return commandMessageHandler.update(id,body);
     }
-
 
 }
