@@ -1,6 +1,6 @@
 package com.example.demojpa.app.command.message;
 
-import com.example.demojpa.domain.message.MessageDTO;
+import com.example.demojpa.generator.domain.MessageDTO;
 import reactor.core.publisher.Mono;
 
 public interface CommandMessageHandler {

@@ -1,0 +1,13 @@
+{{- if .Values.esConfig }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+  labels:
+    release: {{ .Release.Name }}
+data:
+  {{-range $path, $files := .Values.djConfig }}
+  {{ $path }}: |-
+        {{ $files }}
+  {{- end }}
+{{- end }}

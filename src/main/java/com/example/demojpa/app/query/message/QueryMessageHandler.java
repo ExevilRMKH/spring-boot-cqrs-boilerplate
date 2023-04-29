@@ -1,6 +1,6 @@
 package com.example.demojpa.app.query.message;
 
-import com.example.demojpa.domain.message.Message;
+import com.example.demojpa.generator.domain.Message;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

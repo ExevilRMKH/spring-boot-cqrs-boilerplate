@@ -1,9 +1,9 @@
-package com.example.demojpa.ports;
+package com.example.demojpa.ports.rest;
 
 import com.example.demojpa.app.command.message.CommandMessageHandler;
 import com.example.demojpa.app.query.message.QueryMessageHandler;
-import com.example.demojpa.domain.message.Message;
-import com.example.demojpa.domain.message.MessageDTO;
+import com.example.demojpa.generator.domain.Message;
+import com.example.demojpa.generator.domain.MessageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

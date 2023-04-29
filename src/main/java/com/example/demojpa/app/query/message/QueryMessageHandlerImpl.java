@@ -1,7 +1,7 @@
 package com.example.demojpa.app.query.message;
 
-import com.example.demojpa.domain.message.Message;
-import com.example.demojpa.domain.message.MessageRepository;
+import com.example.demojpa.generator.domain.Message;
+import com.example.demojpa.generator.domain.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
