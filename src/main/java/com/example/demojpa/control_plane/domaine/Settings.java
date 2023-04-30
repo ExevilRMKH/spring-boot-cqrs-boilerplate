@@ -1,4 +1,4 @@
-package com.example.demojpa.cp.domaine;
+package com.example.demojpa.control_plane.domaine;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Settings {
     private Integer poolSize;
     private Integer messageSize;
+    private Integer messageCount;
     private Boolean random;
     private Boolean custom;
 }

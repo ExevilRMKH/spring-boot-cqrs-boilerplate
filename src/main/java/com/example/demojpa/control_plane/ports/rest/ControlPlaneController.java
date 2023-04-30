@@ -1,6 +1,6 @@
-package com.example.demojpa.ports.rest.cp;
+package com.example.demojpa.control_plane.ports.rest;
 
-import com.example.demojpa.cp.domaine.Settings;
+import com.example.demojpa.control_plane.domaine.Settings;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

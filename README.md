@@ -1,1 +1,1 @@
-This is project created how used CQRS and Reactor-Project
+This project is message generator for anyone channel
